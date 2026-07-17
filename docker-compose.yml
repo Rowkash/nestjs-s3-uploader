@@ -1,0 +1,22 @@
+services:
+
+  garage:
+    image: docker.io/dxflrs/garage:v2.3.0
+    container_name: "garage"
+    command: /garage server --single-node --default-bucket
+    env_file:
+      - .env
+    ports:
+      - "3900:3900"
+      - "3901:3901"
+      - "3902:3902"
+    volumes:
+      - ./garage.toml:/etc/garage.toml:ro
+      - garage-meta:/var/lib/garage/meta
+      - garage-data:/var/lib/garage/data
+
+volumes:
+  garage-meta:
+    driver: local
+  garage-data:
+    driver: local
